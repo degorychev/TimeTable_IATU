@@ -59,12 +59,19 @@
 		<meta name="language" content="ru">
 		<link rel="stylesheet" type="text/css" href="./css/style.css">
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.min.css" media="screen">
+		
+		
+		<link rel="stylesheet" type="text/css" href="./css/search.css">
+		
 		<script type="text/javascript" src="./js/scripts.js"></script>
 		<?php
 		echo('<title>Группа '.$gruppa.' | Расписание ИАТУ</title>') ;
 		?>		
 		<meta name="description" content="Поиск по имени студента или преподавателя, номер группы знать не обязательно :)">
 		<meta name="viewport" content="width=400, initial-scale=1">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/search.js"></script>
 	</head>
 	<body>
 		<div class="container" id="page">
@@ -73,23 +80,10 @@
 				<?php
 				echo('<h1>Группа '.$gruppa.'</h1>') ;
 				?>
-					<div class="input-append">
-						<input type="text" class="input-xxlarge" placeholder="Поиск по имени / группе / курсу / факультету, минимум 3 символа">
-						<div class="btn-group">
-							<button class="btn dropdown-toggle" data-toggle="dropdown">
-							на неделю
-							<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu">
-								<li><a class="option" data-value="0" style="display: none ;">на неделю</a>
-								</li>
-								<li><a class="option" data-value="1">на сегодня</a>
-								</li>
-								<li><a class="option" data-value="2">ближайшая пара</a>
-								</li>
-							</ul>
-						</div>
-					</div>
+
+				<input type="text" name="referal" placeholder="Поиск по группам или преподавателям" value="" class="input-xxlarge" autocomplete="off">
+				<ul class="search_result"></ul>
+				
 					<div id="print"><a><i class="icon-print"></i> распечатать</a></div>
 					<div class="results">
 						<hr>
@@ -514,9 +508,6 @@
 				</div>
 				<p></p>
 			</div>
-			<script language="Javascript">
-				var s=new scheduleSearch($("#sfld")) ;
-			</script>
 		</div>
 	</body>
 </html>

@@ -1,0 +1,25 @@
+.search{
+   position:relative;
+}
+
+.search_result{
+    background: #FFF;
+    border: 1px #ccc solid;
+    border-radius: 4px;
+    overflow-y: auto;
+    display:none;
+}
+
+.search_result li{
+    list-style: none;
+    padding: 5px 10px;
+    margin: 0 0 0 -40px;
+    color: #0896D3;
+    border-bottom: 1px #ccc solid;
+    cursor: pointer;
+    transition:0.3s;
+}
+
+.search_result li:hover{
+    background: #edf0f5;
+}
