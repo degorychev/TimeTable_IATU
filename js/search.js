@@ -1,28 +1,28 @@
 $(function(){
     
-//Живой поиск
+//Р–РёРІРѕР№ РїРѕРёСЃРє
 $('.input-xxlarge').bind("change keyup input click", function() {
     if(this.value.length >= 2){
         $.ajax({
             type: 'post',
-            url: "search.php", //Путь к обработчику
+            url: "search.php", //РџСѓС‚СЊ Рє РѕР±СЂР°Р±РѕС‚С‡РёРєСѓ
             data: {'referal':this.value},
             response: 'text',
             success: function(data){
-                $(".search_result").html(data).fadeIn(); //Выводим полученые данные в списке
+                $(".search_result").html(data).fadeIn(); //Р’С‹РІРѕРґРёРј РїРѕР»СѓС‡РµРЅС‹Рµ РґР°РЅРЅС‹Рµ РІ СЃРїРёСЃРєРµ
            }
        })
     }
 })
     
 $(".search_result").hover(function(){
-    $(".input-xxlarge").blur(); //Убираем фокус с input
+    $(".input-xxlarge").blur(); //РЈР±РёСЂР°РµРј С„РѕРєСѓСЃ СЃ input
 })
     
-//При выборе результата поиска, прячем список и заносим выбранный результат в input
+//РџСЂРё РІС‹Р±РѕСЂРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° РїРѕРёСЃРєР°, РїСЂСЏС‡РµРј СЃРїРёСЃРѕРє Рё Р·Р°РЅРѕСЃРёРј РІС‹Р±СЂР°РЅРЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ РІ input
 $(".search_result").on("click", "li", function(){
     s_user = $(this).text();
-    //$(".who").val(s_user).attr('disabled', 'disabled'); //деактивируем input, если нужно
+    //$(".who").val(s_user).attr('disabled', 'disabled'); //РґРµР°РєС‚РёРІРёСЂСѓРµРј input, РµСЃР»Рё РЅСѓР¶РЅРѕ
     $(".search_result").fadeOut();
 })
 
