@@ -9,11 +9,31 @@
 		$position=$_COOKIE['position'];
 		$value=$_COOKIE['value'];
 	}
+	$datach=date('W');
+	if(isset($_GET["week"]))
+		$datach = $_GET["week"];
+	$year = 2017;
+	function getDatesByWeek($_week_number, $_year = null) 
+	{
+        $year = $_year ? $_year : date('Y');
+        $week_number = sprintf('%02d', $_week_number);
+        $date_base = strtotime($year . 'W' . $week_number . '1 00:00:00');
+        $date_limit = strtotime($year . 'W' . $week_number . '7 23:59:59');
+        return array($date_base, $date_limit);
+	}
+
+
 	
 	$date = new DateTime();	
 	if(date("w")<2)
 	$date->add(new DateInterval('P2D')) ;//если сегодня воскресенье или понедельник то добавить 2 дня 	
 	$date->modify('last Monday');//Найти НУЖНЫЙ понедельник (магия)
+	
+	if($datach>0)
+	{
+		$dates = getDatesByWeek($datach, 2017);
+		$date = new DateTime(date('Y-m-d H:i:s', $dates[0]));
+	}
 ?>
 <?php
 	function getRusDate($datetime)  
@@ -65,15 +85,16 @@
 		<link rel="stylesheet" type="text/css" href="./css/style.css">
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.min.css" media="screen">
 		<link rel="stylesheet" type="text/css" href="./css/search.css">
+		<link rel="stylesheet" type="text/css" href="./css/extra.css">
 		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 		<script type="text/javascript" src="./js/scripts.js"></script>
 		<?php
 			if($position == 'teacher')
-				echo('<title>Преподаватель '.$value.' | Расписание ИАТУ</title>') ;
+			echo('<title>Преподаватель '.$value.' | Расписание ИАТУ</title>') ;
 			else if ($position == 'student')
-				echo('<title>Группа '.$value.' | Расписание ИАТУ</title>') ;
+			echo('<title>Группа '.$value.' | Расписание ИАТУ</title>') ;
 			else
-				echo('<title>Расписание ИАТУ</title>') ;
+			echo('<title>Расписание ИАТУ</title>') ;
 		?>		
 		<meta name="description" content="Поиск по имени студента или преподавателя, номер группы знать не обязательно :)">
 		<meta name="viewport" content="width=400, initial-scale=1">		
@@ -86,9 +107,9 @@
 				<div id="sfld">
 					<?php
 						if($position == 'teacher')
-							echo('<h1>Преподаватель '.$value.'</h1>') ;
+						echo('<h1>Преподаватель '.$value.'</h1>') ;
 						else if ($position == 'student')
-							echo('<h1>Группа '.$value.'</h1>') ;
+						echo('<h1>Группа '.$value.'</h1>') ;
 						else
 						{
 							echo('<h1>Расписание ИАТУ</h1>') ;
@@ -517,9 +538,22 @@
 						</div>
 					</div>
 					<hr>
+					<div id="selector" align="center"> 
+						<?php 
+						$datestart="4 September 2017";
+							for ($i = 36; $i <= 36+16; $i++) //Это номера недель в году
+							{
+								$j=$i-35; //Это номера недель в семестре
+								if($i==$datach)
+									echo'<a style="color: black;">'.$j.') С '.date("d.m", strtotime("+".($j-1)." week", strtotime($datestart))).' по '.date("d.m", strtotime("-2 day", strtotime("+".($j)." week", strtotime($datestart)))).'</a>';
+								else
+									echo '<a href="personal.php?week='.$i.'">'.$j.'</a>';
+							}
+						?>
+					</div> 
+					<hr>
 					<div><a href="./now.php">Статистическая информация</a></div>
 				</div>
-				<p></p>
 			</div>
 		</div>
 	</body>

@@ -1,0 +1,11 @@
+#selector { 
+	font-weight: bold; /* жирный */ 
+	padding: 10px; /* Поля вокруг текста */ 
+	clear: both; /* Отменяет обтекание элемента одновременно с правого и левого края */ 
+} 
+#selector a { 
+	display: inline-flex;
+	border: solid 1px #8FB8CC; /* Параметры рамки */ 
+	padding: 6px; /* Поля вокруг текста */ 
+	margin: 3px; /* Отступы вокруг */ 
+} 
