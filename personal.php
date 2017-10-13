@@ -51,7 +51,8 @@
 			if($row)
 			{
 				echo $row['discipline'].', ('.$row['type'].') — '.$row['cabinet'] ;	
-				echo ('<div class="teacher" data-rel="'.$row['ID'].'">'.$row['teacher'].'</div>') ;
+				echo ('<i class="icon-user" onclick="openbox('.$row['ID'].'); return false"></i>') ;
+				echo ('<div class="teacher" id="'.$row['ID'].'" style="display: none;">'.$row['teacher'].'</div>') ;
 			}
 			break;
 		}
@@ -64,14 +65,15 @@
 		<link rel="stylesheet" type="text/css" href="./css/style.css">
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.min.css" media="screen">
 		<link rel="stylesheet" type="text/css" href="./css/search.css">
+		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 		<script type="text/javascript" src="./js/scripts.js"></script>
 		<?php
 			if($position == 'teacher')
-			echo('<title>Преподаватель '.$value.' | Расписание ИАТУ</title>') ;
+				echo('<title>Преподаватель '.$value.' | Расписание ИАТУ</title>') ;
 			else if ($position == 'student')
-			echo('<title>Группа '.$value.' | Расписание ИАТУ</title>') ;
+				echo('<title>Группа '.$value.' | Расписание ИАТУ</title>') ;
 			else
-			echo('<title>Расписание ИАТУ</title>') ;
+				echo('<title>Расписание ИАТУ</title>') ;
 		?>		
 		<meta name="description" content="Поиск по имени студента или преподавателя, номер группы знать не обязательно :)">
 		<meta name="viewport" content="width=400, initial-scale=1">		
@@ -84,9 +86,9 @@
 				<div id="sfld">
 					<?php
 						if($position == 'teacher')
-						echo('<h1>Преподаватель '.$value.'</h1>') ;
+							echo('<h1>Преподаватель '.$value.'</h1>') ;
 						else if ($position == 'student')
-						echo('<h1>Группа '.$value.'</h1>') ;
+							echo('<h1>Группа '.$value.'</h1>') ;
 						else
 						{
 							echo('<h1>Расписание ИАТУ</h1>') ;

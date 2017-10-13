@@ -3,13 +3,16 @@
     include('config.php');
 	global $conn;
 	
-	$gruppa = $_GET["gruppa"];
+	if(isset($_GET["gruppa"]))
+		$gruppa = $_GET["gruppa"];
 	
 	$date = new DateTime();	
 	if(date("w")<2)
 		$date->add(new DateInterval('P2D')) ;//если сегодня воскресенье или понедельник то добавить 2 дня 	
 	$date->modify('last Monday');//Найти НУЖНЫЙ понедельник (магия)
-	$datach = $_GET["data"];
+	$datach = 0;
+	if(isset($_GET["data"]))
+		$datach = $_GET["data"];
 	$year = 2017;
 	
 	
@@ -48,8 +51,8 @@
 		if($row)
 		{
 			echo $row['discipline'].', ('.$row['type'].') — '.$row['cabinet'] ;	
-			echo ('<i class="icon-user" data-rel="'.$row['ID'].'"></i>') ;
-			echo ('<div class="teacher" data-rel="'.$row['ID'].'">'.$row['teacher'].'</div>') ;
+			echo ('<i class="icon-user" onclick="openbox('.$row['ID'].'); return false"></i>') ;
+			echo ('<div class="teacher" id="'.$row['ID'].'" style="display: none;">'.$row['teacher'].'</div>') ;
 		}						
 	}
 ?>
