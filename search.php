@@ -25,7 +25,7 @@ if(!empty($_POST["referal"])){ //Принимаем данные
 	{
 		if(search(mb_strtolower($row['class']), $referal))
 		{
-			echo "\n<li>".'<a href=student.php?gruppa='.$row['class'].'>'.$row['class']."</a></li>";
+			echo "\n".'<a href=student.php?gruppa='.$row['class'].'><li>'.$row['class']."</li></a>";
 			$FoundBool = TRUE;
 		}
 	} 
@@ -35,7 +35,7 @@ if(!empty($_POST["referal"])){ //Принимаем данные
 	{
 		if(search(mb_strtolower($row['teacher']), $referal))
 		{
-			echo "\n<li>".'<a href=teacher.php?teacher='.$row['teacher'].'>'.$row['teacher']."</a></li>";
+			echo "\n".'<a href=teacher.php?teacher='.$row['teacher'].'><li>'.$row['teacher']."</li></a>";
 			$FoundBool = TRUE;			
 		}
 	}
