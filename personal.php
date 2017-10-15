@@ -9,9 +9,7 @@
 		$position=$_COOKIE['position'];
 		$value=$_COOKIE['value'];
 	}
-	$datach=date('W');
-	if(isset($_GET["week"]))
-		$datach = $_GET["week"];
+
 	$year = 2017;
 	function getDatesByWeek($_week_number, $_year = null) 
 	{
@@ -24,16 +22,14 @@
 
 
 	
-	$date = new DateTime();	
-	if(date("w")<2)
-	$date->add(new DateInterval('P2D')) ;//если сегодня воскресенье или понедельник то добавить 2 дня 	
-	$date->modify('last Monday');//Найти НУЖНЫЙ понедельник (магия)
+	$datach=date('W');
+	if(date("w")<2) //Если воскресенье или понедельник - перейти на следующую неделю
+		$datach++;
+	if(isset($_GET["week"]))
+		$datach = $_GET["week"];
 	
-	if($datach>0)
-	{
-		$dates = getDatesByWeek($datach, 2017);
-		$date = new DateTime(date('Y-m-d H:i:s', $dates[0]));
-	}
+	$dates = getDatesByWeek($datach, 2017);
+	$date = new DateTime(date('Y-m-d H:i:s', $dates[0]));
 ?>
 <?php
 	function getRusDate($datetime)  
