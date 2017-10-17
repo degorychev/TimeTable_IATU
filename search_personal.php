@@ -29,13 +29,23 @@ if(!empty($_POST["referal"])){ //Принимаем данные
 			$FoundBool = TRUE;
 		}
 	} 
-		$query=('SELECT teacher FROM TimeTableView where (date>DATE_ADD(now(), INTERVAL -31 DAY)) group by teacher');
+	$query=('SELECT teacher FROM TimeTableView where (date>DATE_ADD(now(), INTERVAL -31 DAY)) group by teacher');
 	$result = $conn->query($query) ;				
 	while ($row = $result->fetch_assoc()) 
 	{
 		if(search(mb_strtolower($row['teacher']), $referal))
 		{
 			echo "\n".'<a href=setcookie.php?position=teacher&value='.$row['teacher'].'><li>Преподаватель '.$row['teacher']."</li></a>";
+			$FoundBool = TRUE;			
+		}
+	}
+	$query=('SELECT cabinet FROM TimeTableView where (date>DATE_ADD(now(), INTERVAL -31 DAY)) group by cabinet');
+	$result = $conn->query($query) ;				
+	while ($row = $result->fetch_assoc()) 
+	{
+		if(search(mb_strtolower($row['cabinet']), $referal))
+		{
+			echo "\n".'<a href=setcookie.php?position=cabinet&value='.$row['cabinet'].'><li>Кабинет № '.$row['cabinet']."</li></a>";
 			$FoundBool = TRUE;			
 		}
 	}

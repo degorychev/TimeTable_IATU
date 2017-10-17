@@ -49,28 +49,37 @@
 		$data = date_format($datain, 'Y-m-d') ;
 		$query = "";
 		if($position == 'teacher')
-		$query = "SELECT * FROM TimeTableView WHERE (date = '$data')and(timeStart = '$time')and(teacher LIKE ('$value%'))" ;
-		else if ($position = 'student')
-		$query = "SELECT * FROM TimeTableView WHERE (class = '$value')and(date = '$data')and(timeStart = '$time')" ;
+			$query = "SELECT * FROM TimeTableView WHERE (date = '$data')and(timeStart = '$time')and(teacher LIKE ('$value%'))" ;
+		else if ($position == 'student')
+			$query = "SELECT * FROM TimeTableView WHERE (class = '$value')and(date = '$data')and(timeStart = '$time')" ;
+		else if ($position == 'cabinet')
+			$query = "SELECT * FROM TimeTableView WHERE (cabinet = '$value')and(date = '$data')and(timeStart = '$time')" ;
 		$result = $conn->query($query) ;
 		$row = $result->fetch_assoc() ;
 		switch($position)
 		{
 			case 'teacher':
-			if($row)
-			{
-				echo $row['discipline'].', ('.$row['type'].') — '.$row['cabinet'] ;	
-				echo '</br>'.$row['class'];
-			}	
-			break;
+				if($row)
+				{
+					echo $row['discipline'].', ('.$row['type'].') — '.$row['cabinet'] ;	
+					echo '</br>'.$row['class'];
+				}	
+				break;
 			case 'student':
-			if($row)
-			{
-				echo $row['discipline'].', ('.$row['type'].') — '.$row['cabinet'] ;	
-				echo ('<i class="icon-user" onclick="openbox('.$row['ID'].'); return false"></i>') ;
-				echo ('<div class="teacher" id="'.$row['ID'].'" style="display: none;">'.$row['teacher'].'</div>') ;
-			}
-			break;
+				if($row)
+				{
+					echo $row['discipline'].', ('.$row['type'].') — '.$row['cabinet'] ;	
+					echo ('<i class="icon-user" onclick="openbox('.$row['ID'].'); return false"></i>') ;
+					echo ('<div class="teacher" id="'.$row['ID'].'" style="display: none;">'.$row['teacher'].'</div>') ;
+				}
+				break;
+			case 'cabinet':
+				if($row)
+				{
+					echo $row['discipline'].', ('.$row['type'].') — '.$row['teacher'] ;	
+					echo '</br>'.$row['class'];
+				}
+				break;
 		}
 	}
 ?>
@@ -86,11 +95,13 @@
 		<script type="text/javascript" src="./js/scripts.js"></script>
 		<?php
 			if($position == 'teacher')
-			echo('<title>Преподаватель '.$value.' | Расписание ИАТУ</title>') ;
+				echo('<title>Преподаватель '.$value.' | Расписание ИАТУ</title>') ;
 			else if ($position == 'student')
-			echo('<title>Группа '.$value.' | Расписание ИАТУ</title>') ;
+				echo('<title>Группа '.$value.' | Расписание ИАТУ</title>') ;
+			else if ($position == 'cabinet')
+				echo('<title>Кабинет № '.$value.' | Расписание ИАТУ</title>') ;
 			else
-			echo('<title>Расписание ИАТУ</title>') ;
+				echo('<title>Расписание ИАТУ</title>') ;
 		?>		
 		<meta name="description" content="Поиск по имени студента или преподавателя, номер группы знать не обязательно :)">
 		<meta name="viewport" content="width=400, initial-scale=1">		
@@ -103,16 +114,18 @@
 				<div id="sfld">
 					<?php
 						if($position == 'teacher')
-						echo('<h1>Преподаватель '.$value.'</h1>') ;
+							echo('<h1>Преподаватель '.$value.'</h1>') ;
 						else if ($position == 'student')
-						echo('<h1>Группа '.$value.'</h1>') ;
+							echo('<h1>Группа '.$value.'</h1>') ;
+						else if ($position == 'cabinet')
+							echo('<h1>Кабинет № '.$value.'</h1>') ;
 						else
 						{
 							echo('<h1>Расписание ИАТУ</h1>') ;
 							echo('<h4>Пожалуйста, определите преподавателя или группу:</h4>');
 						}
 					?>
-					<input type="text" name="referal" placeholder="Поиск по группам или преподавателям" value="" class="input-xxlarge" autocomplete="off">
+					<input type="text" name="referal" placeholder="Поиск по группам, преподавателям или кабинетам" value="" class="input-xxlarge" autocomplete="off">
 					<ul class="search_result"></ul>
 					<div id="print"><a><i class="icon-print"></i> распечатать</a></div>
 					<div class="results">

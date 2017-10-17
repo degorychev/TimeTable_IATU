@@ -2,7 +2,7 @@ $(function(){
     
 //Живой поиск
 $('.input-xxlarge').bind("change keyup input click", function() {
-    if(this.value.length >= 2){
+    if(this.value.length >= 1){
         $.ajax({
             type: 'post',
             url: "search_personal.php", //Путь к обработчику
